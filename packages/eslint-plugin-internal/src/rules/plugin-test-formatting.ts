@@ -47,6 +47,7 @@ const a = 1;
 
 const prettierConfig = prettier.resolveConfig(__dirname) ?? {};
 const START_OF_LINE_WHITESPACE_MATCHER = /^([ ]*)/;
+const SEARCH_START_OF_LINE_WHITESPACE_MATCHER = /[^ ]/;
 const BACKTICK_REGEX = /`/g;
 const TEMPLATE_EXPR_OPENER = /\$\{/g;
 
@@ -55,16 +56,16 @@ function getExpectedIndentForNode(
   sourceCodeLines: string[],
 ): number {
   const lineIdx = node.loc.start.line - 1;
-  const indent = START_OF_LINE_WHITESPACE_MATCHER.exec(
-    sourceCodeLines[lineIdx],
-  )![1];
-  return indent.length;
+  const indent = sourceCodeLines[lineIdx].search(
+    SEARCH_START_OF_LINE_WHITESPACE_MATCHER,
+  );
+  if (indent === -1) {
+    return 0;
+  }
+  return indent;
 }
 function doIndent(line: string, indent: number): string {
-  for (let i = 0; i < indent; i += 1) {
-    line = ' ' + line;
-  }
-  return line;
+  return ' '.repeat(indent) + line;
 }
 
 function getQuote(code: string): '"' | "'" | null {
