@@ -1031,7 +1031,53 @@ var funcExpr = function () {
         },
       ],
     },
-
+    {
+      code: `
+let anyValue: any;
+function foo(): any {
+  anyValue = () => () => console.log('aa');
+}
+      `,
+      options: [
+        {
+          allowTypedFunctionExpressions: true,
+        },
+      ],
+      errors: [
+        {
+          messageId: 'missingReturnType',
+          line: 4,
+          endLine: 4,
+          column: 23,
+          endColumn: 25,
+        },
+      ],
+    },
+    {
+      code: `
+class Foo {
+  foo(): any {
+    const bar = () => () => {
+      return console.log('foo');
+    };
+  }
+}
+      `,
+      options: [
+        {
+          allowTypedFunctionExpressions: true,
+        },
+      ],
+      errors: [
+        {
+          messageId: 'missingReturnType',
+          line: 4,
+          endLine: 4,
+          column: 26,
+          endColumn: 28,
+        },
+      ],
+    },
     {
       code: 'const x = (() => {}) as Foo;',
       options: [{ allowTypedFunctionExpressions: false }],
@@ -1844,6 +1890,27 @@ let foo = (() => () => {})()();
           endLine: 2,
           column: 21,
           endColumn: 23,
+        },
+      ],
+    },
+    {
+      code: `
+function foo(): any {
+  const bar = () => () => console.log('aa');
+}
+      `,
+      options: [
+        {
+          allowTypedFunctionExpressions: true,
+        },
+      ],
+      errors: [
+        {
+          messageId: 'missingReturnType',
+          line: 3,
+          endLine: 3,
+          column: 24,
+          endColumn: 26,
         },
       ],
     },
