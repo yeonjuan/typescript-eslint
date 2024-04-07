@@ -69,6 +69,7 @@ function b(x = {} as Foo.Bar) {}
 function c(x = {} as Foo) {}
 print?.({ bar: 5 } as Foo)
 print?.call({ bar: 5 } as Foo)
+print\`\${{ bar: 5 } as Foo}\`
 `;
 const OBJECT_LITERAL_ARGUMENT_ANGLE_BRACKET_CASTS = `
 print(<Foo>{ bar: 5 })
@@ -657,6 +658,17 @@ ruleTester.run('consistent-type-assertions', rule, {
               messageId: 'replaceObjectTypeAssertionWithSatisfies',
               data: { cast: 'Foo' },
               output: 'print?.call({ bar: 5 } satisfies Foo)',
+            },
+          ],
+        },
+        {
+          messageId: 'unexpectedObjectTypeAssertion',
+          line: 12,
+          suggestions: [
+            {
+              messageId: 'replaceObjectTypeAssertionWithSatisfies',
+              data: { cast: 'Foo' },
+              output: 'print`${{ bar: 5 } satisfies Foo}`',
             },
           ],
         },
