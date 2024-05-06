@@ -50,12 +50,3 @@ jobs:
             end with a full-stop.
             For PRs that add or change ESLint-plugin rules, you should begin
             the title with "[rule-name] "
-  breaking-change:
-    name: Validate breaking change PR
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/prepare-install
-      - uses: ./.github/actions/breaking-pr-check
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
