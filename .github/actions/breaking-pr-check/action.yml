@@ -1,0 +1,6 @@
+name: Check
+description: Wait for the Netlify deployment for the current commit to be ready
+
+runs:
+  using: node20
+  main: index.js
