@@ -50,6 +50,7 @@ jobs:
             end with a full-stop.
             For PRs that add or change ESLint-plugin rules, you should begin
             the title with "[rule-name] "
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/breaking-pr-check
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
