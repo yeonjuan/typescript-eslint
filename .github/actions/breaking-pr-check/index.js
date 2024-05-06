@@ -40,7 +40,7 @@ function checkDescription(body, labels) {
   const [firstLine, secondLine] = body.split(/\r?\n/);
 
   if (!firstLine || !/^BREAKING CHANGE:/.test(firstLine)) {
-    raiseError(`Breaking change PR body should starts with "BREAKING CHANGE:"`);
+    raiseError(`Breaking change PR body should start with "BREAKING CHANGE:"`);
   }
   if (!secondLine) {
     raiseError(`The description of breaking change is missing.`);
