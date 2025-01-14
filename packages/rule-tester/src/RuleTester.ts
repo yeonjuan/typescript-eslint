@@ -354,7 +354,6 @@ export class RuleTester extends TestFramework {
       if (languageOptions.parser === parser) {
         throw new Error(DUPLICATE_PARSER_ERROR_MESSAGE);
       }
-      console.log(getFilename(test.filename, languageOptions.parserOptions));
       return {
         ...test,
         filename: getFilename(test.filename, languageOptions.parserOptions),
